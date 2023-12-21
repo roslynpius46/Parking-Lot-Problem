@@ -35,4 +35,13 @@ public class ParkingLot {
     public List<Vehicle> getParkedVehicles() {
         return new ArrayList<>(parkedVehicles);
     }
+
+    /**
+     * @desc Function to unpark vehicle
+     * @param vehicle Vehicle to be unparked
+     * @return True if unparking successful else false
+     */
+    public boolean unparkVehicle(Vehicle vehicle) {
+        return parkedVehicles.remove(vehicle);
+    }
 }
