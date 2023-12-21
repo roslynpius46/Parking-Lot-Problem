@@ -1,4 +1,5 @@
 import com.bridgelabz.parkinglot.ParkingLot;
+import com.bridgelabz.parkinglot.ParkingLotOwner;
 import com.bridgelabz.parkinglot.Vehicle;
 import org.junit.Test;
 
@@ -96,5 +97,34 @@ public class ParkingLotTest {
 
         // Now, the parking lot should not be full
         assertFalse(parkingLot.isFull());
+    }
+
+    /**
+     * @desc Testing if parking lot owner is notified when parking lot is full
+     */
+    @Test
+    public void givenParkingLotIsFull_ShouldInformOwner() {
+        // Mock dependencies
+        Vehicle mockVehicle = mock(Vehicle.class);
+        when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
+
+        // Create a ParkingLot with a capacity of 1
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        // Create a ParkingLotOwner and register as an observer
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        parkingLot.register(parkingLotOwner);
+
+        // Park a vehicle in the ParkingLot
+        parkingLot.parkVehicle(mockVehicle);
+
+        // Verify that the owner has not been notified yet
+        assertFalse(parkingLotOwner.isCapacityFull());
+
+        // Park another vehicle in the ParkingLot (this will exceed the capacity)
+        parkingLot.parkVehicle(mockVehicle);
+
+        // Verify that the owner has been notified
+        assertTrue(parkingLotOwner.isCapacityFull());
     }
 }

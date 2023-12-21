@@ -9,6 +9,7 @@ import java.util.List;
 public class ParkingLot {
     private final int capacity;
     private List<Vehicle> parkedVehicles;
+    List<ParkingLotObservers> observersList;
 
     /**
      * @desc Constructor to initialize the capacity and total list of parked vehicles
@@ -17,6 +18,7 @@ public class ParkingLot {
     public ParkingLot(int capacity) {
         this.capacity = capacity;
         this.parkedVehicles = new ArrayList<>();
+        this.observersList = new ArrayList<>();
     }
 
     /**
@@ -51,11 +53,32 @@ public class ParkingLot {
     }
 
     /**
-     * @desc Function to check if parking lot is full
-     * @return True if parking lot is full else false
+     * @desc Registering new observer
+     * @param parkingObservers Observer to be added
+     */
+    public void register(ParkingLotObservers parkingObservers) {
+        observersList.add(parkingObservers);
+    }
+
+    /**
+     * @desc Function to notify all observers if parking lot is full
+     */
+    private void notifyObservers() {
+        for (ParkingLotObservers observer : observersList) {
+            observer.setCapacityFull();
+        }
+    }
+
+    /**
+     * @desc Checking if parking lot is full
+     * @return True if full else false
      */
     public boolean isFull() {
-        return parkedVehicles.size() >= capacity;
+        boolean isFull = parkedVehicles.size() >= capacity;
+        if (isFull) {
+            notifyObservers();
+        }
+        return isFull;
     }
 
 }
