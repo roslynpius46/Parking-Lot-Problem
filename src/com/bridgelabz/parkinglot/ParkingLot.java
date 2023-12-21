@@ -23,9 +23,14 @@ public class ParkingLot {
      * @desc Function to park vehicle
      * @param vehicle Vehicle to be parked
      */
-    public void parkVehicle(Vehicle vehicle) {
+    public boolean parkVehicle(Vehicle vehicle) {
+        if(isFull())
+        {
+            return false;
+        }
         String numberPlate = vehicle.getNumberPlate();
         parkedVehicles.add(vehicle);
+        return true;
     }
 
     /**
@@ -44,4 +49,13 @@ public class ParkingLot {
     public boolean unparkVehicle(Vehicle vehicle) {
         return parkedVehicles.remove(vehicle);
     }
+
+    /**
+     * @desc Function to check if parking lot is full
+     * @return True if parking lot is full else false
+     */
+    public boolean isFull() {
+        return parkedVehicles.size() >= capacity;
+    }
+
 }

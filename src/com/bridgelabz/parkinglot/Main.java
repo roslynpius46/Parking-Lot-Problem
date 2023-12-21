@@ -42,5 +42,8 @@ public class Main {
             System.out.println("Time Parked: " + vehicle.getTimeParked());
             System.out.println();
         }
+
+        // USE CASE 3: Check if the parking lot is full after unparking
+        System.out.println("Is the Parking Lot Full? " + parkingLot.isFull());
     }
 }

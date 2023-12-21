@@ -61,4 +61,40 @@ public class ParkingLotTest {
         // Verify that the vehicle was successfully unparked
         assertTrue(unparked);
     }
+
+    /**
+     * @desc Testing the function to check if parking lot is full
+     */
+    @Test
+    public void testIsFull() {
+        // Mock dependencies
+        Vehicle mockVehicle = mock(Vehicle.class);
+        when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
+
+        // Create a ParkingLot with a capacity of 2
+        ParkingLot parkingLot = new ParkingLot(2);
+
+        // Initially, the parking lot should not be full
+        assertFalse(parkingLot.isFull());
+
+        // Park a vehicle in the ParkingLot
+        parkingLot.parkVehicle(mockVehicle);
+
+        // Now, the parking lot should not be full
+        assertFalse(parkingLot.isFull());
+
+        // Park another vehicle in the ParkingLot
+        Vehicle anotherMockVehicle = mock(Vehicle.class);
+        when(anotherMockVehicle.getNumberPlate()).thenReturn("XYZ789");
+        parkingLot.parkVehicle(anotherMockVehicle);
+
+        // Now, the parking lot should be full
+        assertTrue(parkingLot.isFull());
+
+        // Unpark a vehicle to free up space
+        parkingLot.unparkVehicle(mockVehicle);
+
+        // Now, the parking lot should not be full
+        assertFalse(parkingLot.isFull());
+    }
 }
