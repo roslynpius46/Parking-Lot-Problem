@@ -1,9 +1,9 @@
 package com.bridgelabz.parkinglot;
 
 /**
- * @desc This class extends the ParkingLotObservers interface and represents Parking lot owner
+ * @desc This class extends the ParkingLotObservers interface and represents Airport Security
  */
-public class ParkingLotOwner implements ParkingLotObservers {
+public class AirportSecurity implements ParkingLotObservers {
     private boolean isFullCapacity;
 
     /**

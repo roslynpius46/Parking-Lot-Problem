@@ -1,3 +1,4 @@
+import com.bridgelabz.parkinglot.AirportSecurity;
 import com.bridgelabz.parkinglot.ParkingLot;
 import com.bridgelabz.parkinglot.ParkingLotOwner;
 import com.bridgelabz.parkinglot.Vehicle;
@@ -103,7 +104,7 @@ public class ParkingLotTest {
      * @desc Testing if parking lot owner is notified when parking lot is full
      */
     @Test
-    public void givenParkingLotIsFull_ShouldInformOwner() {
+    public void checkIfNotifyOwner() {
         // Mock dependencies
         Vehicle mockVehicle = mock(Vehicle.class);
         when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
@@ -126,5 +127,34 @@ public class ParkingLotTest {
 
         // Verify that the owner has been notified
         assertTrue(parkingLotOwner.isCapacityFull());
+    }
+
+    /**
+     * @desc Testing if airport security is notified when parking lot is full
+     */
+    @Test
+    public void checkIfNotifyAirportSecurity() {
+        // Mock dependencies
+        Vehicle mockVehicle = mock(Vehicle.class);
+        when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
+
+        // Create a ParkingLot with a capacity of 1
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        // Create a ParkingLotOwner and register as an observer
+        AirportSecurity airportSecurity = new AirportSecurity();
+        parkingLot.register(airportSecurity);
+
+        // Park a vehicle in the ParkingLot
+        parkingLot.parkVehicle(mockVehicle);
+
+        // Verify that the owner has not been notified yet
+        assertFalse(airportSecurity.isCapacityFull());
+
+        // Park another vehicle in the ParkingLot (this will exceed the capacity)
+        parkingLot.parkVehicle(mockVehicle);
+
+        // Verify that the owner has been notified
+        assertTrue(airportSecurity.isCapacityFull());
     }
 }
