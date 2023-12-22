@@ -252,4 +252,22 @@ public class ParkingLotTest {
         assertEquals(2, lot1.getParkedVehicles().size());
         assertEquals(2, lot2.getParkedVehicles().size());
     }
+
+    /**
+     * @desc Test case for parking a handicapped driver's car in the nearest available space
+     */
+    @Test
+    public void testParkHandicappedDriverCar() {
+        ParkingLot parkingLot1 = new ParkingLot(2);
+        ParkingLot parkingLot2 = new ParkingLot(3);
+
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
+        Vehicle handicappedCar = new Vehicle("HND123", "Toyota", "Silver");
+
+        assertTrue(parkingAttendant.parkVehicleForHandicapDriver(List.of(parkingLot1, parkingLot2), handicappedCar));
+
+        assertEquals(1, parkingLot1.getParkedVehicles().size());
+        assertEquals(handicappedCar, parkingLot1.getParkedVehicles().get(0));
+        assertEquals(0, parkingLot2.getParkedVehicles().size());
+    }
 }

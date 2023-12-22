@@ -22,6 +22,14 @@ public class ParkingLot {
     }
 
     /**
+     * @desc Get the capacity of the parking lot
+     * @return The total capacity of the parking lot
+     */
+    public int getCapacity() {
+        return capacity;
+    }
+
+    /**
      * @desc Function to park vehicle
      * @param vehicle Vehicle to be parked
      */

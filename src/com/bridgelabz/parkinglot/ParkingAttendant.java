@@ -41,4 +41,44 @@ public class ParkingAttendant {
 
         return false;
     }
+
+    /**
+     * @desc Function to park a vehicle in the parking lot
+     * @param parkingLots List of parking lots
+     * @param vehicle Vehicle to be parked
+     * @return True if the vehicle is parked successfully, false otherwise
+     */
+    public boolean parkVehicleForHandicapDriver(List<ParkingLot> parkingLots, Vehicle vehicle) {
+        if (parkingLots == null || parkingLots.isEmpty()) {
+            return false;
+        }
+
+        // Find the parking lot with the nearest available space
+        ParkingLot nearestLot = findNearestParkingLot(parkingLots);
+
+        if (nearestLot != null) {
+            return nearestLot.parkVehicle(vehicle);
+        }
+
+        return false;
+    }
+
+    /**
+     * @desc Function to find the parking lot with the nearest available space
+     * @param parkingLots List of parking lots
+     * @return ParkingLot with the nearest available space, or null if no space is available
+     */
+    private ParkingLot findNearestParkingLot(List<ParkingLot> parkingLots) {
+        ParkingLot nearestLot = null;
+        int minCapacity = Integer.MAX_VALUE;
+
+        for (ParkingLot lot : parkingLots) {
+            if (!lot.isFull() && lot.getCapacity() < minCapacity) {
+                minCapacity = lot.getCapacity();
+                nearestLot = lot;
+            }
+        }
+
+        return nearestLot;
+    }
 }
