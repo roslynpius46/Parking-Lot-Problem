@@ -1,6 +1,9 @@
 import com.bridgelabz.parkinglot.*;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -224,5 +227,29 @@ public class ParkingLotTest {
 
         System.out.println("Parking duration for car1: " + parkingDurationCar1 + " milliseconds");
         System.out.println("Parking duration for car2: " + parkingDurationCar2 + " milliseconds");
+    }
+
+    /**
+     * @desc Test case for even distribution of cars among parking lots
+     */
+    @Test
+    public void testEvenDistribution() {
+
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        ParkingLot lot1 = new ParkingLot(2);
+        ParkingLot lot2 = new ParkingLot(2);
+        parkingLots.add(lot1);
+        parkingLots.add(lot2);
+
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
+
+        for (int i = 0; i < 4; i++) {
+            Vehicle car = new Vehicle("CAR" + (i + 1), "Honda", "Gray");
+            boolean parked= parkingAttendant.refactoredParkVehicle(parkingLots, car);
+            assertTrue(parked);
+        }
+
+        assertEquals(2, lot1.getParkedVehicles().size());
+        assertEquals(2, lot2.getParkedVehicles().size());
     }
 }
