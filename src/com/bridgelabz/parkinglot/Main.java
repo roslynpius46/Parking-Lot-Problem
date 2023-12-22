@@ -5,7 +5,7 @@ public class Main {
     {
         System.out.println("Implementation of Parking Lot Problem");
 
-        ParkingLot parkingLot = new ParkingLot(10);
+        ParkingLot parkingLot = new ParkingLot(2);
 
         Vehicle car1 = new Vehicle("ABC123", "Toyota", "Blue");
         Vehicle car2 = new Vehicle("XYZ789", "Honda", "Red");
@@ -45,5 +45,11 @@ public class Main {
 
         // USE CASE 3: Check if the parking lot is full after unparking
         System.out.println("Is the Parking Lot Full? " + parkingLot.isFull());
+
+        //USE CASE 5:
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        parkingLot.register(parkingLotOwner);
+        System.out.println("Is the Parking Space Available? " + !(parkingLotOwner.isCapacityFull()));
+
     }
 }

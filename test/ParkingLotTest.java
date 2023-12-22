@@ -14,17 +14,14 @@ public class ParkingLotTest {
      */
     @Test
     public void testParkVehicle() {
-        // Mock dependencies
+
         Vehicle mockVehicle = mock(Vehicle.class);
         when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
 
-        // Create a ParkingLot with a capacity of 1
         ParkingLot parkingLot = new ParkingLot(1);
 
-        // Park the vehicle
         parkingLot.parkVehicle(mockVehicle);
 
-        // Verify that the parkVehicle method was called with the correct vehicle
         verify(mockVehicle, times(1)).getNumberPlate();
         assertTrue(parkingLot.getParkedVehicles().contains(mockVehicle));
         assertEquals(1, parkingLot.getParkedVehicles().size());
@@ -36,31 +33,24 @@ public class ParkingLotTest {
      */
     @Test
     public void testUnparkVehicle() {
-        // Mock dependencies
+
         Vehicle mockVehicle = mock(Vehicle.class);
         when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
 
-        // Create a ParkingLot with a capacity of 1
         ParkingLot parkingLot = new ParkingLot(1);
 
-        // Park the vehicle
         parkingLot.parkVehicle(mockVehicle);
 
-        // Verify that the vehicle is in the parked vehicles list
         assertTrue(parkingLot.getParkedVehicles().contains(mockVehicle));
         assertEquals(1, parkingLot.getParkedVehicles().size());
 
-        // Unpark the vehicle
         boolean unparked = parkingLot.unparkVehicle(mockVehicle);
 
-        // Verify that the unparkVehicle method was called with the correct vehicle
         verify(mockVehicle, times(1)).getNumberPlate();
 
-        // Verify that the vehicle is no longer in the parked vehicles list
         assertFalse(parkingLot.getParkedVehicles().contains(mockVehicle));
         assertEquals(0, parkingLot.getParkedVehicles().size());
 
-        // Verify that the vehicle was successfully unparked
         assertTrue(unparked);
     }
 
@@ -69,34 +59,25 @@ public class ParkingLotTest {
      */
     @Test
     public void testIsFull() {
-        // Mock dependencies
         Vehicle mockVehicle = mock(Vehicle.class);
         when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
 
-        // Create a ParkingLot with a capacity of 2
         ParkingLot parkingLot = new ParkingLot(2);
 
-        // Initially, the parking lot should not be full
         assertFalse(parkingLot.isFull());
 
-        // Park a vehicle in the ParkingLot
         parkingLot.parkVehicle(mockVehicle);
 
-        // Now, the parking lot should not be full
         assertFalse(parkingLot.isFull());
 
-        // Park another vehicle in the ParkingLot
         Vehicle anotherMockVehicle = mock(Vehicle.class);
         when(anotherMockVehicle.getNumberPlate()).thenReturn("XYZ789");
         parkingLot.parkVehicle(anotherMockVehicle);
 
-        // Now, the parking lot should be full
         assertTrue(parkingLot.isFull());
 
-        // Unpark a vehicle to free up space
         parkingLot.unparkVehicle(mockVehicle);
 
-        // Now, the parking lot should not be full
         assertFalse(parkingLot.isFull());
     }
 
@@ -105,27 +86,22 @@ public class ParkingLotTest {
      */
     @Test
     public void checkIfNotifyOwner() {
-        // Mock dependencies
+
         Vehicle mockVehicle = mock(Vehicle.class);
         when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
 
-        // Create a ParkingLot with a capacity of 1
+
         ParkingLot parkingLot = new ParkingLot(1);
 
-        // Create a ParkingLotOwner and register as an observer
         ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
         parkingLot.register(parkingLotOwner);
 
-        // Park a vehicle in the ParkingLot
         parkingLot.parkVehicle(mockVehicle);
 
-        // Verify that the owner has not been notified yet
         assertFalse(parkingLotOwner.isCapacityFull());
 
-        // Park another vehicle in the ParkingLot (this will exceed the capacity)
         parkingLot.parkVehicle(mockVehicle);
 
-        // Verify that the owner has been notified
         assertTrue(parkingLotOwner.isCapacityFull());
     }
 
@@ -134,27 +110,39 @@ public class ParkingLotTest {
      */
     @Test
     public void checkIfNotifyAirportSecurity() {
-        // Mock dependencies
+
         Vehicle mockVehicle = mock(Vehicle.class);
         when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
-
-        // Create a ParkingLot with a capacity of 1
         ParkingLot parkingLot = new ParkingLot(1);
 
-        // Create a ParkingLotOwner and register as an observer
         AirportSecurity airportSecurity = new AirportSecurity();
         parkingLot.register(airportSecurity);
-
-        // Park a vehicle in the ParkingLot
         parkingLot.parkVehicle(mockVehicle);
 
-        // Verify that the owner has not been notified yet
         assertFalse(airportSecurity.isCapacityFull());
-
-        // Park another vehicle in the ParkingLot (this will exceed the capacity)
         parkingLot.parkVehicle(mockVehicle);
-
-        // Verify that the owner has been notified
         assertTrue(airportSecurity.isCapacityFull());
+    }
+
+    /**
+     * @desc Testing if parking lot owner is notified when parking space is available
+     */
+    @Test
+    public void checkIfNotifyOwnerSpaceAvailable() {
+
+        Vehicle mockVehicle1 = mock(Vehicle.class);
+        when(mockVehicle1.getNumberPlate()).thenReturn("ABC123");
+
+        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        parkingLot.register(parkingLotOwner);
+
+        parkingLot.parkVehicle(mockVehicle1);
+        parkingLot.parkVehicle(mockVehicle1);
+        assertTrue(parkingLotOwner.isCapacityFull());
+
+        parkingLot.unparkVehicle(mockVehicle1);
+
+        assertFalse(parkingLotOwner.isCapacityFull());
     }
 }

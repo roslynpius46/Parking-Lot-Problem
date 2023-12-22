@@ -10,8 +10,17 @@ public class ParkingLotOwner implements ParkingLotObservers {
      * @desc function to set capacity as full
      */
     @Override
-    public void setCapacityFull() {
+    public void setCapacityFull()
+    {
         isFullCapacity = true;
+    }
+
+    /**
+     * @desc function to make sure space is available
+     */
+    @Override
+    public void setCapacityAvailable() {
+        isFullCapacity = false;
     }
 
     /**
@@ -19,7 +28,9 @@ public class ParkingLotOwner implements ParkingLotObservers {
      * @return True if full else false
      */
     @Override
-    public boolean isCapacityFull() {
+    public boolean isCapacityFull()
+    {
         return this.isFullCapacity;
     }
+
 }

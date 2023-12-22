@@ -19,7 +19,16 @@ public class AirportSecurity implements ParkingLotObservers {
      * @return True if full else false
      */
     @Override
-    public boolean isCapacityFull() {
+    public boolean isCapacityFull()
+    {
         return this.isFullCapacity;
+    }
+
+    /**
+     * @desc function to make sure space is available
+     */
+    @Override
+    public void setCapacityAvailable() {
+        isFullCapacity = false;
     }
 }

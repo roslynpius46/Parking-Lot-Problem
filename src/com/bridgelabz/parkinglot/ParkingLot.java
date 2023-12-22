@@ -48,7 +48,9 @@ public class ParkingLot {
      * @param vehicle Vehicle to be unparked
      * @return True if unparking successful else false
      */
-    public boolean unparkVehicle(Vehicle vehicle) {
+    public boolean unparkVehicle(Vehicle vehicle)
+    {
+        notifyObserversAvailable();
         return parkedVehicles.remove(vehicle);
     }
 
@@ -56,14 +58,15 @@ public class ParkingLot {
      * @desc Registering new observer
      * @param parkingObservers Observer to be added
      */
-    public void register(ParkingLotObservers parkingObservers) {
+    public void register(ParkingLotObservers parkingObservers)
+    {
         observersList.add(parkingObservers);
     }
 
     /**
      * @desc Function to notify all observers if parking lot is full
      */
-    private void notifyObservers() {
+    private void notifyObserversFull() {
         for (ParkingLotObservers observer : observersList) {
             observer.setCapacityFull();
         }
@@ -74,11 +77,23 @@ public class ParkingLot {
      * @return True if full else false
      */
     public boolean isFull() {
-        boolean isFull = parkedVehicles.size() >= capacity;
+        boolean isFull = parkedVehicles.size() == capacity;
         if (isFull) {
-            notifyObservers();
+            notifyObserversFull();
+        }
+        else {
+            notifyObserversAvailable();
         }
         return isFull;
+    }
+
+    /**
+     * @desc Function to notify all observers if parking space is available
+     */
+    private void notifyObserversAvailable() {
+        for (ParkingLotObservers observer : observersList) {
+            observer.setCapacityAvailable();
+        }
     }
 
 }
