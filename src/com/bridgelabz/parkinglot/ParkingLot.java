@@ -96,4 +96,18 @@ public class ParkingLot {
         }
     }
 
+    /**
+     * @desc Function to find a parked vehicle by its number plate
+     * @param numberPlate Number plate of the vehicle to find
+     * @return The found vehicle or null if not found
+     */
+    public int findVehicleByNumberPlate(String numberPlate) {
+        for (Vehicle vehicle : parkedVehicles) {
+            if (vehicle.getNumberPlate().equals(numberPlate)) {
+                return parkedVehicles.indexOf(vehicle);
+            }
+        }
+        return -1;
+    }
+
 }

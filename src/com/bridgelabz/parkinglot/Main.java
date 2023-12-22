@@ -52,5 +52,9 @@ public class Main {
         parkingLot.register(parkingLotOwner);
         System.out.println("Is the Parking Space Available? " + !(parkingLotOwner.isCapacityFull()));
 
+        //USE CASE 7: Finding Car location by giving number plate
+        parkingAttendant.parkVehicle(parkingLot, car1);
+        System.out.println("Vehicle ABC123 is at: "+parkingLot.findVehicleByNumberPlate("ABC123"));
+
     }
 }

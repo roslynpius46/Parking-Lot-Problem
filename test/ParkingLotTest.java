@@ -163,4 +163,32 @@ public class ParkingLotTest {
         assertTrue(parkingAttendant.parkVehicle(parkingLot, anotherMockVehicle));
         assertTrue(parkingLot.isFull());
     }
+
+    /**
+     * @desc Test case for finding a vehicle by number plate
+     */
+    @Test
+    public void testFindVehicleByNumberPlate() {
+        Vehicle mockVehicle1 = mock(Vehicle.class);
+        when(mockVehicle1.getNumberPlate()).thenReturn("ABC123");
+
+        Vehicle mockVehicle2 = mock(Vehicle.class);
+        when(mockVehicle2.getNumberPlate()).thenReturn("XYZ789");
+
+        ParkingLot parkingLot = new ParkingLot(2);
+        parkingLot.parkVehicle(mockVehicle1);
+        parkingLot.parkVehicle(mockVehicle2);
+
+        // Test finding the first vehicle
+        int foundLocation1 = parkingLot.findVehicleByNumberPlate("ABC123");
+        assertTrue(foundLocation1 != -1); // Ensure vehicle is found
+
+        // Test finding the second vehicle
+        int foundLocation2 = parkingLot.findVehicleByNumberPlate("XYZ789");
+        assertTrue(foundLocation2 != -1); // Ensure vehicle is found
+
+        // Test finding a non-existing vehicle
+        int nonExistingVehicle = parkingLot.findVehicleByNumberPlate("ZZZ999");
+        assertEquals(-1,nonExistingVehicle); // Ensure vehicle is not found
+    }
 }
