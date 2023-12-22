@@ -1,7 +1,4 @@
-import com.bridgelabz.parkinglot.AirportSecurity;
-import com.bridgelabz.parkinglot.ParkingLot;
-import com.bridgelabz.parkinglot.ParkingLotOwner;
-import com.bridgelabz.parkinglot.Vehicle;
+import com.bridgelabz.parkinglot.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -144,5 +141,26 @@ public class ParkingLotTest {
         parkingLot.unparkVehicle(mockVehicle1);
 
         assertFalse(parkingLotOwner.isCapacityFull());
+    }
+
+    /**
+     * @desc Check if parking attendant parks the cars
+     */
+    @Test
+    public void testParkingByParkingAttendant() {
+        Vehicle mockVehicle = mock(Vehicle.class);
+        when(mockVehicle.getNumberPlate()).thenReturn("ABC123");
+
+        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
+
+        assertTrue(parkingAttendant.parkVehicle(parkingLot, mockVehicle));
+        assertFalse(parkingLot.isFull());
+
+        Vehicle anotherMockVehicle = mock(Vehicle.class);
+        when(anotherMockVehicle.getNumberPlate()).thenReturn("XYZ789");
+
+        assertTrue(parkingAttendant.parkVehicle(parkingLot, anotherMockVehicle));
+        assertTrue(parkingLot.isFull());
     }
 }

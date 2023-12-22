@@ -6,13 +6,14 @@ public class Main {
         System.out.println("Implementation of Parking Lot Problem");
 
         ParkingLot parkingLot = new ParkingLot(2);
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
 
         Vehicle car1 = new Vehicle("ABC123", "Toyota", "Blue");
         Vehicle car2 = new Vehicle("XYZ789", "Honda", "Red");
 
-        // USE CASE 1: Park vehicles in the Parking Lot
-        parkingLot.parkVehicle(car1);
-        parkingLot.parkVehicle(car2);
+        // Parking attendant parks the vehicles
+        parkingAttendant.parkVehicle(parkingLot, car1);
+        parkingAttendant.parkVehicle(parkingLot, car2);
 
         System.out.println("Parked Vehicles:");
         for (Vehicle vehicle : parkingLot.getParkedVehicles()) {
