@@ -31,6 +31,7 @@ public class ParkingLot {
             return false;
         }
         String numberPlate = vehicle.getNumberPlate();
+        vehicle.setTimeParked(System.currentTimeMillis());
         parkedVehicles.add(vehicle);
         return true;
     }
@@ -106,6 +107,21 @@ public class ParkingLot {
         for (Vehicle vehicle : parkedVehicles) {
             if (vehicle.getNumberPlate().equals(numberPlate)) {
                 return parkedVehicles.indexOf(vehicle);
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * @desc Function to get parking duration
+     * @param numberPlate Number plate of the vehicle
+     * @return time for which car was parked
+     */
+    public long getParkingDuration(String numberPlate) {
+        for (Vehicle vehicle : parkedVehicles) {
+            if (vehicle.getNumberPlate().equals(numberPlate)) {
+                long currentTime = System.currentTimeMillis();
+                return currentTime - vehicle.getTimeParked();
             }
         }
         return -1;

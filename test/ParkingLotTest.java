@@ -176,8 +176,9 @@ public class ParkingLotTest {
         when(mockVehicle2.getNumberPlate()).thenReturn("XYZ789");
 
         ParkingLot parkingLot = new ParkingLot(2);
-        parkingLot.parkVehicle(mockVehicle1);
-        parkingLot.parkVehicle(mockVehicle2);
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
+        parkingAttendant.parkVehicle(parkingLot, mockVehicle1);
+        parkingAttendant.parkVehicle(parkingLot, mockVehicle2);
 
         // Test finding the first vehicle
         int foundLocation1 = parkingLot.findVehicleByNumberPlate("ABC123");
@@ -190,5 +191,38 @@ public class ParkingLotTest {
         // Test finding a non-existing vehicle
         int nonExistingVehicle = parkingLot.findVehicleByNumberPlate("ZZZ999");
         assertEquals(-1,nonExistingVehicle); // Ensure vehicle is not found
+    }
+
+    /**
+     * @desc Test function to get time for which car was parked
+     */
+    @Test
+    public void testGetParkingDuration() {
+        ParkingLot parkingLot = new ParkingLot(5);
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
+
+        Vehicle mockVehicle1 = mock(Vehicle.class);
+        when(mockVehicle1.getNumberPlate()).thenReturn("ABC123");
+
+        Vehicle mockVehicle2 = mock(Vehicle.class);
+        when(mockVehicle2.getNumberPlate()).thenReturn("XYZ789");
+
+        parkingAttendant.parkVehicle(parkingLot, mockVehicle1);
+        parkingAttendant.parkVehicle(parkingLot, mockVehicle2);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long parkingDurationCar1 = parkingLot.getParkingDuration("ABC123");
+        long parkingDurationCar2 = parkingLot.getParkingDuration("XYZ789");
+
+        assertTrue(parkingDurationCar1 > 0);
+        assertTrue(parkingDurationCar2 > 0);
+
+        System.out.println("Parking duration for car1: " + parkingDurationCar1 + " milliseconds");
+        System.out.println("Parking duration for car2: " + parkingDurationCar2 + " milliseconds");
     }
 }

@@ -53,12 +53,22 @@ public class Vehicle {
      * @return Vehicle parking time
      * @desc Getter function for parking time
      */
-    public String getTimeParked() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date resultDate = new Date(timeParked);
-        return sdf.format(resultDate);
+    public long getTimeParked() {
+        return timeParked;
     }
 
+    /**
+     * @desc Set the parking time for the vehicle.
+     */
+    public void setTimeParked(long timeParked) {
+        this.timeParked = timeParked;
+    }
+
+    /**
+     * @desc Get parking location of vehicle
+     * @param parkingLot Parking Lot object
+     * @return Location of the vehicle in the parking lot. If vehicle not present it returns -1.
+     */
     public int getParkingLocation(ParkingLot parkingLot)
     {
         return parkingLot.findVehicleByNumberPlate(this.getNumberPlate());

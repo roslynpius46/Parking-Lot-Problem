@@ -58,5 +58,25 @@ public class Main {
         parkingAttendant.parkVehicle(parkingLot, car1);
         System.out.println("Vehicle ABC123 is at: "+parkingLot.findVehicleByNumberPlate("ABC123"));
 
+        //USE CASE 8: Know when a particular car was parked
+        String searchNumberPlate = "XYZ789";
+        int foundLocation = parkingLot.findVehicleByNumberPlate(searchNumberPlate);
+        if (foundLocation != -1) {
+            Vehicle foundVehicle = parkingLot.getParkedVehicles().get(foundLocation);
+
+            // Get parking duration in milliseconds
+            long parkingDuration = parkingLot.getParkingDuration(searchNumberPlate);
+
+            System.out.println("\nFound Vehicle:");
+            System.out.println("Number Plate: " + foundVehicle.getNumberPlate());
+            System.out.println("Make: " + foundVehicle.getMake());
+            System.out.println("Color: " + foundVehicle.getColor());
+            System.out.println("Time Parked: " + foundVehicle.getTimeParked());
+            System.out.println("Parking Location: " + foundVehicle.getParkingLocation(parkingLot));
+            System.out.println("Parking Duration: " + parkingDuration + " milliseconds");
+        } else {
+            System.out.println("\nVehicle not found.");
+        }
+
     }
 }
