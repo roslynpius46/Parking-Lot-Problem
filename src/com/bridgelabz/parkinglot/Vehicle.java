@@ -58,4 +58,9 @@ public class Vehicle {
         Date resultDate = new Date(timeParked);
         return sdf.format(resultDate);
     }
+
+    public int getParkingLocation(ParkingLot parkingLot)
+    {
+        return parkingLot.findVehicleByNumberPlate(this.getNumberPlate());
+    }
 }

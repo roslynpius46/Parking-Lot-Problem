@@ -21,6 +21,7 @@ public class Main {
             System.out.println("Make: " + vehicle.getMake());
             System.out.println("Color: " + vehicle.getColor());
             System.out.println("Time Parked: " + vehicle.getTimeParked());
+            System.out.println("Parking Location: " + vehicle.getParkingLocation(parkingLot));
             System.out.println();
         }
 
@@ -41,6 +42,7 @@ public class Main {
             System.out.println("Make: " + vehicle.getMake());
             System.out.println("Color: " + vehicle.getColor());
             System.out.println("Time Parked: " + vehicle.getTimeParked());
+            System.out.println("Parking Location: " + vehicle.getParkingLocation(parkingLot));
             System.out.println();
         }
 

@@ -39,7 +39,8 @@ public class ParkingLot {
      * @desc Get the list of parked vehicles
      * @return List of parked vehicles
      */
-    public List<Vehicle> getParkedVehicles() {
+    public List<Vehicle> getParkedVehicles()
+    {
         return new ArrayList<>(parkedVehicles);
     }
 
