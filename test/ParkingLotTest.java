@@ -2,6 +2,7 @@ import com.bridgelabz.parkinglot.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -289,5 +290,29 @@ public class ParkingLotTest {
         assertEquals(0, parkingLot1.getParkedVehicles().size());
         assertEquals(1, parkingLot2.getParkedVehicles().size());
         assertTrue(parkingLot2.getParkedVehicles().contains(mockLargeVehicle));
+    }
+
+    /**
+     * @desc Testing function to get location of parked white cars
+     */
+    @Test
+    public void testGetLocationsOfParkedWhiteCars() {
+        ParkingLot parkingLot = new ParkingLot(3);
+
+        Vehicle whiteCar1 = new Vehicle("ABC123", "Toyota", "White");
+        Vehicle redCar = new Vehicle("XYZ789", "Honda", "Red");
+        Vehicle whiteCar2 = new Vehicle("DEF456", "Ford", "White");
+
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
+
+        parkingAttendant.parkVehicle(parkingLot, whiteCar1);
+        parkingAttendant.parkVehicle(parkingLot, redCar);
+        parkingAttendant.parkVehicle(parkingLot, whiteCar2);
+
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+
+        List<Integer> whiteCarLocations = policeDepartment.getLocationsOfParkedWhiteCars(parkingLot);
+        List<Integer> expectedLocations = Arrays.asList(0, 2);
+        assertEquals(expectedLocations, whiteCarLocations);
     }
 }

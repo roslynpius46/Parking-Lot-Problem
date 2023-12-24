@@ -135,4 +135,20 @@ public class ParkingLot {
         return -1;
     }
 
+    /**
+     * @desc Function to find the locations of parked white cars
+     * @return List of locations (indices) of parked white cars
+     */
+    public List<Integer> findLocationsOfParkedWhiteCars() {
+        List<Integer> whiteCarLocations = new ArrayList<>();
+
+        for (Vehicle vehicle : parkedVehicles) {
+            if ("White".equalsIgnoreCase(vehicle.getColor())) {
+                whiteCarLocations.add(parkedVehicles.indexOf(vehicle));
+            }
+        }
+
+        return whiteCarLocations;
+    }
+
 }
