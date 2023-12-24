@@ -315,4 +315,32 @@ public class ParkingLotTest {
         List<Integer> expectedLocations = Arrays.asList(0, 2);
         assertEquals(expectedLocations, whiteCarLocations);
     }
+
+    /**
+     * @desc Testing function  to get details of blue toyota car
+     */
+    @Test
+    public void testGetDetailsOfParkedBlueToyotaCars() {
+        ParkingLot parkingLot = new ParkingLot(3);
+
+        Vehicle blueToyota1 = new Vehicle("ABC123", "Toyota", "Blue");
+        Vehicle redCar = new Vehicle("XYZ789", "Honda", "Red");
+        Vehicle blueToyota2 = new Vehicle("DEF456", "Toyota", "Blue");
+
+        ParkingAttendant parkingAttendant = new ParkingAttendant("John");
+
+        parkingAttendant.parkVehicle(parkingLot, blueToyota1);
+        parkingAttendant.parkVehicle(parkingLot, redCar);
+        parkingAttendant.parkVehicle(parkingLot, blueToyota2);
+
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        List<VehicleDetails> blueToyotaCarsDetails = policeDepartment.getDetailsOfParkedBlueToyotaCars(parkingLot,parkingAttendant);
+        List<VehicleDetails> expectedDetails = Arrays.asList(
+                new VehicleDetails(0, "ABC123", "Toyota", "Blue", parkingAttendant.getName()),
+                new VehicleDetails(2, "DEF456", "Toyota", "Blue", parkingAttendant.getName())
+        );
+
+        // Verify the result
+        assertEquals(expectedDetails, blueToyotaCarsDetails);
+    }
 }

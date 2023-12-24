@@ -8,6 +8,21 @@ import java.util.List;
 public class ParkingAttendant {
 
     private int lastLotIndex = 0;
+    private String name;
+
+    /**
+     * @desc Default constructor
+     */
+    public ParkingAttendant(){
+        //default constructor
+    }
+    /**
+     * @desc Parameterized constructor to initialize attendant's name
+     */
+    public ParkingAttendant(String name)
+    {
+        this.name=name;
+    }
 
     /**
      * @desc Function to park a vehicle in the parking lot
@@ -114,5 +129,13 @@ public class ParkingAttendant {
         }
 
         return targetLot;
+    }
+
+    /**
+     * @desc Getter function for attendant name
+     * @return Nmae of parking attendant
+     */
+    public String getName() {
+        return this.name;
     }
 }
