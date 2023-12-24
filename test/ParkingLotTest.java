@@ -270,4 +270,24 @@ public class ParkingLotTest {
         assertEquals(handicappedCar, parkingLot1.getParkedVehicles().get(0));
         assertEquals(0, parkingLot2.getParkedVehicles().size());
     }
+
+    /**
+     * @desc Test case for parking a large vehicle in the lot with the highest number of free spaces
+     */
+    @Test
+    public void testParkLargeVehicle() {
+        Vehicle mockLargeVehicle = mock(Vehicle.class);
+        when(mockLargeVehicle.getNumberPlate()).thenReturn("LARGE001");
+
+        ParkingLot parkingLot1 = new ParkingLot(2);
+        ParkingLot parkingLot2 = new ParkingLot(3);
+
+        ParkingAttendant parkingAttendant = new ParkingAttendant();
+
+        assertTrue(parkingAttendant.parkLargeVehicle(List.of(parkingLot1, parkingLot2), mockLargeVehicle));
+
+        assertEquals(0, parkingLot1.getParkedVehicles().size());
+        assertEquals(1, parkingLot2.getParkedVehicles().size());
+        assertTrue(parkingLot2.getParkedVehicles().contains(mockLargeVehicle));
+    }
 }

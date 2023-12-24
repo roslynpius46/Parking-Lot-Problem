@@ -81,4 +81,38 @@ public class ParkingAttendant {
 
         return nearestLot;
     }
+
+    /**
+     * @desc Function to park a large vehicle in the parking lot with the highest number of free spaces
+     * @param parkingLots List of parking lots to choose from
+     * @param largeVehicle Large vehicle to be parked
+     * @return True if the vehicle is parked successfully, false otherwise
+     */
+    public boolean parkLargeVehicle(List<ParkingLot> parkingLots, Vehicle largeVehicle) {
+        ParkingLot targetLot = findLotWithHighestFreeSpaces(parkingLots);
+        if (targetLot != null) {
+            return targetLot.parkVehicle(largeVehicle);
+        }
+        return false;
+    }
+
+    /**
+     * @desc Function to find the parking lot with the highest number of free spaces
+     * @param parkingLots List of parking lots to choose from
+     * @return The parking lot with the highest number of free spaces
+     */
+    private ParkingLot findLotWithHighestFreeSpaces(List<ParkingLot> parkingLots) {
+        ParkingLot targetLot = null;
+        int maxFreeSpaces = 0;
+
+        for (ParkingLot parkingLot : parkingLots) {
+            int freeSpaces = parkingLot.getCapacity() - parkingLot.getParkedVehicles().size();
+            if (freeSpaces > maxFreeSpaces) {
+                maxFreeSpaces = freeSpaces;
+                targetLot = parkingLot;
+            }
+        }
+
+        return targetLot;
+    }
 }
