@@ -48,4 +48,28 @@ public class PoliceDepartment {
     private boolean isBlueToyota(Vehicle vehicle) {
         return "Toyota".equals(vehicle.getMake()) && "Blue".equals(vehicle.getColor());
     }
+
+    /**
+     * @desc Get details of all parked BMW cars
+     * @param parkingLot List of parking lots
+     * @return List of details of parked BMW cars
+     */
+    public List<VehicleDetails> getParkedBMWCars(ParkingLot parkingLot,ParkingAttendant parkingAttendant) {
+        List<VehicleDetails> bmwCars = new ArrayList<>();
+        List<Vehicle> parkedVehicles = parkingLot.getParkedVehicles();
+
+        for (int i = 0; i < parkedVehicles.size(); i++) {
+            Vehicle vehicle = parkedVehicles.get(i);
+
+            if ("BMW".equals(vehicle.getMake()) ) {
+
+                VehicleDetails details = new VehicleDetails(i, vehicle.getNumberPlate(), vehicle.getMake(),
+                        vehicle.getColor(), parkingAttendant.getName());
+                bmwCars.add(details);
+            }
+        }
+
+
+        return bmwCars;
+    }
 }

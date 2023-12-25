@@ -343,4 +343,31 @@ public class ParkingLotTest {
         // Verify the result
         assertEquals(expectedDetails, blueToyotaCarsDetails);
     }
+
+    /**
+     * @desc Testing function to get details of the parked BMW cars
+     */
+    @Test
+    public void testGetParkedBMWCars() {
+        ParkingLot parkingLot = new ParkingLot(3);
+
+        Vehicle bmw1 = new Vehicle("ABC123", "BMW", "Blue");
+        Vehicle redCar = new Vehicle("XYZ789", "Honda", "Red");
+        Vehicle bmw2 = new Vehicle("DEF456", "BMW", "Gray");
+
+        ParkingAttendant parkingAttendant = new ParkingAttendant("John");
+
+        parkingAttendant.parkVehicle(parkingLot, bmw1);
+        parkingAttendant.parkVehicle(parkingLot, redCar);
+        parkingAttendant.parkVehicle(parkingLot, bmw2);
+
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        List<VehicleDetails> bmwCarsDetails = policeDepartment.getParkedBMWCars(parkingLot,parkingAttendant);
+        List<VehicleDetails> expectedDetails = Arrays.asList(
+                new VehicleDetails(0, "ABC123", "BMW", "Blue", parkingAttendant.getName()),
+                new VehicleDetails(2, "DEF456", "BMW", "Gray", parkingAttendant.getName())
+        );
+
+        assertEquals(expectedDetails, bmwCarsDetails);
+    }
 }
