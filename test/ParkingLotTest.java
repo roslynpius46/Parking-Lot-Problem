@@ -401,4 +401,38 @@ public class ParkingLotTest {
         assertEquals(2, recentCars.size());
         assertEquals(expectedDetails, recentCars);
     }
+
+    /**
+     * @desc Testing function that gives details of all the cars parked in a parking lot
+     */
+    @Test
+    public void testGetAllParkedCars() {
+        // Create a parking lot
+        ParkingLot parkingLot = new ParkingLot(10);
+
+        // Create a parking attendant
+        ParkingAttendant parkingAttendant = new ParkingAttendant("John");
+
+        // Create a police department
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+
+        // Park a vehicle
+        Vehicle vehicle = new Vehicle("ABC123", "Toyota", "Blue");
+        parkingAttendant.parkVehicle(parkingLot, vehicle);
+
+        // Park another vehicle
+        Vehicle anotherVehicle = new Vehicle("XYZ789", "Honda", "Red");
+        parkingAttendant.parkVehicle(parkingLot, anotherVehicle);
+
+        // Get details of all parked cars
+        List<VehicleDetails> allParkedCars = policeDepartment.getAllParkedCars(parkingLot, parkingAttendant);
+        List<VehicleDetails> expectedDetails = Arrays.asList(
+                new VehicleDetails(0, "ABC123", "Toyota", "Blue", parkingAttendant.getName()),
+                new VehicleDetails(1, "XYZ789", "Honda", "Red", parkingAttendant.getName())
+        );
+
+        assertEquals(2, allParkedCars.size());
+        assertEquals(expectedDetails, allParkedCars);
+
+}
 }

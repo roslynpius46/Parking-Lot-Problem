@@ -100,4 +100,27 @@ public class PoliceDepartment {
 
         return recentCars;
     }
-}
+
+    /**
+     * @desc Get all parked car details
+     * @param parkingLot Parking lot required
+     * @param parkingAttendant Parking attendant
+     * @return details of all the cars parked in that parking lot
+     */
+    public List<VehicleDetails> getAllParkedCars(ParkingLot parkingLot, ParkingAttendant parkingAttendant) {
+        List<VehicleDetails> allParkedCars = new ArrayList<>();
+
+        List<Vehicle> parkedVehicles = parkingLot.getParkedVehicles();
+
+        for (int i = 0; i < parkedVehicles.size(); i++) {
+            Vehicle vehicle = parkedVehicles.get(i);
+
+            VehicleDetails details = new VehicleDetails(i, vehicle.getNumberPlate(), vehicle.getMake(),
+                    vehicle.getColor(), parkingAttendant.getName());
+            allParkedCars.add(details);
+        }
+
+        return allParkedCars;
+        }
+
+    }
