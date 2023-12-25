@@ -370,4 +370,35 @@ public class ParkingLotTest {
 
         assertEquals(expectedDetails, bmwCarsDetails);
     }
+
+    /**
+     * @desc Test case to check the function to get details of recently parked cars
+     */
+    @Test
+    public void testGetCarsParkedInLast30Minutes() {
+        ParkingLot parkingLot = new ParkingLot(10);
+        ParkingAttendant parkingAttendant = new ParkingAttendant("John");
+        PoliceDepartment policeDepartment = new PoliceDepartment();
+        Vehicle vehicle = new Vehicle("ABC123", "Toyota", "Blue");
+        parkingAttendant.parkVehicle(parkingLot, vehicle);
+
+        try {
+            Thread.sleep(10 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Vehicle anotherVehicle = new Vehicle("XYZ789", "Honda", "Red");
+        parkingAttendant.parkVehicle(parkingLot, anotherVehicle);
+
+        List<VehicleDetails> recentCars = policeDepartment.getCarsParkedInLast30Minutes(parkingLot, parkingAttendant);
+
+        List<VehicleDetails> expectedDetails = Arrays.asList(
+                new VehicleDetails(0, "ABC123", "Toyota", "Blue", parkingAttendant.getName()),
+                new VehicleDetails(1, "XYZ789", "Honda", "Red", parkingAttendant.getName())
+        );
+
+        assertEquals(2, recentCars.size());
+        assertEquals(expectedDetails, recentCars);
+    }
 }

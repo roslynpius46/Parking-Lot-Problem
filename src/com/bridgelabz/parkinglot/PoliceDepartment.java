@@ -51,7 +51,7 @@ public class PoliceDepartment {
 
     /**
      * @desc Get details of all parked BMW cars
-     * @param parkingLot List of parking lots
+     * @param parkingLot The parking lot to search
      * @return List of details of parked BMW cars
      */
     public List<VehicleDetails> getParkedBMWCars(ParkingLot parkingLot,ParkingAttendant parkingAttendant) {
@@ -71,5 +71,33 @@ public class PoliceDepartment {
 
 
         return bmwCars;
+    }
+
+    /**
+     * @desc Get details of all cars parked in the last 30 minutes
+     * @param parkingLot The parking lot to search
+     * @return List of details of cars parked in the last 30 minutes
+     */
+    public List<VehicleDetails> getCarsParkedInLast30Minutes(ParkingLot parkingLot,ParkingAttendant parkingAttendant) {
+        List<VehicleDetails> recentCars = new ArrayList<>();
+
+        long currentTime = System.currentTimeMillis();
+        long thirtyMinutesInMillis = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+        List<Vehicle> parkedVehicles = parkingLot.getParkedVehicles();
+
+        for (int i = 0; i < parkedVehicles.size(); i++) {
+            Vehicle vehicle = parkedVehicles.get(i);
+            long parkingTime = vehicle.getTimeParked();
+
+            if (currentTime - parkingTime <= thirtyMinutesInMillis) {
+
+                VehicleDetails details = new VehicleDetails(i, vehicle.getNumberPlate(), vehicle.getMake(),
+                        vehicle.getColor(), parkingAttendant.getName());
+                recentCars.add(details);
+            }
+        }
+
+        return recentCars;
     }
 }
